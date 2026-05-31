@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 function Plans() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [theme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
     fetchPlans();
@@ -36,7 +37,14 @@ function Plans() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 px-4 py-10">
+      <div
+        className={`min-h-screen px-4 py-10 ${
+          theme === "light"
+            ? "bg-white"
+            : "bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
+        }`}
+      >
+        {" "}
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">

@@ -6,6 +6,8 @@ function Dashboard() {
   const [subscription, setSubscription] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [theme] = useState(localStorage.getItem("theme") || "dark");
+
   useEffect(() => {
     fetchSubscription();
   }, []);
@@ -25,13 +27,17 @@ function Dashboard() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 px-4 py-10">
+      <div
+        className={`min-h-screen px-4 py-10 ${
+          theme === "light"
+            ? "bg-white"
+            : "bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
+        }`}
+      >
+        {" "}
         <div className="max-w-4xl mx-auto">
-          
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white">
-              My Subscription
-            </h1>
+            <h1 className="text-4xl font-bold text-white">My Subscription</h1>
             <p className="text-gray-400 mt-2">
               View and manage your current subscription plan.
             </p>
@@ -59,16 +65,13 @@ function Dashboard() {
 
           {!loading && subscription && (
             <div className="bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 shadow-2xl">
-              
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                 <div>
                   <h2 className="text-3xl font-bold text-white">
                     {subscription.plan?.name}
                   </h2>
 
-                  <p className="text-gray-400 mt-1">
-                    Active Subscription Plan
-                  </p>
+                  <p className="text-gray-400 mt-1">Active Subscription Plan</p>
                 </div>
 
                 <span
@@ -83,28 +86,19 @@ function Dashboard() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                
                 <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
-                  <p className="text-gray-400 text-sm mb-2">
-                    Start Date
-                  </p>
+                  <p className="text-gray-400 text-sm mb-2">Start Date</p>
 
                   <p className="text-white font-semibold text-lg">
-                    {new Date(
-                      subscription.startDate
-                    ).toLocaleDateString()}
+                    {new Date(subscription.startDate).toLocaleDateString()}
                   </p>
                 </div>
 
                 <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
-                  <p className="text-gray-400 text-sm mb-2">
-                    End Date
-                  </p>
+                  <p className="text-gray-400 text-sm mb-2">End Date</p>
 
                   <p className="text-white font-semibold text-lg">
-                    {new Date(
-                      subscription.endDate
-                    ).toLocaleDateString()}
+                    {new Date(subscription.endDate).toLocaleDateString()}
                   </p>
                 </div>
               </div>
